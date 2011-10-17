@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE metaconfiguration SYSTEM "meta.dtd">
+<metaconfiguration>
+
+	<classes>
+		<class name="IngAdmin" source="ing">
+			<implement interface="IPermissionUser" />
+			<properties>
+				<identifier />
+				<property name="name" type="String" size="64" required="true" />
+				<property name="email" type="String" size="128" required="true" />
+				<property name="password" type="String" size="32" required="true" />
+			</properties>
+			<pattern name="DictionaryClass" />
+		</class>
+
+		<class name="IngLog" source="ing">
+			<properties>
+				<identifier column="id" />
+
+				<property name="message" column="message" type="String" required="true" />
+				<property name="objectName" column="object_name" type="String" size="64" required="false" />
+				<property name="objectId" column="object_id" type="String" size="64" required="false" />
+				<property name="adminId" column="admin_id" type="Integer" required="true" />
+				<property name="insertDate" column="insert_date" type="Timestamp" required="true" />
+
+			</properties>
+
+			<pattern name="StraightMapping" />
+		</class>
+	</classes>
+</metaconfiguration>

@@ -1,0 +1,10 @@
+<div id="adminMenu" class="adminMenu">
+<?php
+if ($this->has('menuList')) {
+	$menuModel = Model::create()->
+		set('menuList', $this->get('menuList'))->
+		set('currentMenu', isset($currentMenu) ? $currentMenu : '');
+	$partViewer->view('menu.part', $menuModel);
+}
+?>
+</div>

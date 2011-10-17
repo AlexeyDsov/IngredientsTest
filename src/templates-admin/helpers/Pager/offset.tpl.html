@@ -1,0 +1,66 @@
+<?
+/* @var $totalCount int */
+/* @var $offset int */
+/* @var $limit int */
+/* @var $baseUrl string */
+/* @var $offsetName string */
+/* @var $pageDiff integer */
+Assert::isNotNull($totalCount);
+Assert::isNotNull($offset);
+Assert::isNotNull($limit);
+Assert::isNotNull($baseUrl);
+if (isset($urlParams)) {
+	Assert::isArray($urlParams);
+} else {
+	$urlParams = array();
+}
+if (!isset($offsetName)) {
+	$offsetName = 'offset';
+}
+if (!isset($pageDiff)) {
+	$pageDiff = 5;
+}
+?>
+<div class="pager">
+	<?php
+	$currentPage = (($offset - ($offset % $limit)) / $limit) + 1;
+	$pageCount = floor($totalCount / $limit) + ($totalCount % $limit != 0 ? 1 : 0);
+
+	$endPage = $currentPage + $pageDiff;
+	if ($endPage > $pageCount) {
+		$endPage = $pageCount;
+	}
+	$startPage = $currentPage - $pageDiff;
+	if ($startPage > 1) {
+		$urlParams[$offsetName] = 0;
+		$linkUrl = $baseUrl.  http_build_query($urlParams);
+		?>
+		<a href="<?=$linkUrl?>" class="js-pjax">1</a> ...
+		<?php
+	} else {
+		$startPage = 1;
+	}
+
+	for ($iteratorPage = $startPage; $iteratorPage <= $endPage; $iteratorPage++) {
+		if ($currentPage != $iteratorPage) {
+			$urlParams[$offsetName] = ($iteratorPage - 1) * $limit;
+			$linkUrl = $baseUrl.  http_build_query($urlParams);
+			?>
+			<a href="<?=$linkUrl?>" class="js-pjax"><?=$iteratorPage?></a>
+			<?
+		} else {
+			?>
+			<?=$iteratorPage?>
+			<?
+		}
+	}
+
+	if ($endPage < $pageCount) {
+		$urlParams[$offsetName] = ($pageCount - 1) * $limit;
+		$linkUrl = $baseUrl.  http_build_query($urlParams);
+		?>
+		... <a href="<?=$linkUrl?>" class="js-pjax"><?=$pageCount?></a>
+		<?php
+	}
+	?>
+</div>

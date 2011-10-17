@@ -1,0 +1,67 @@
+<?php
+$partViewer->view('header');
+
+$partViewer->view('helpers/ListMaker/form', $listHeaderModel);
+
+if ($this->get('linker')->isObjectSupported('IngAdmin', 'edit')) {
+	$newObjectDialogName = $this->get('linker')->getDialogName('IngAdmin');
+	$newObjectUrl = $this->get('linker')->getUrl('IngAdmin', array('action' => 'edit'));
+	?>
+	<a
+		href="<?=$newObjectUrl?>"
+		onclick="return DialogController.spawnByLink(event, this, '<?=$newObjectDialogName?>');"
+	>
+		Create new
+	</a>
+	<?php
+}
+/* @var $queryResult QueryResult */
+if (isset($queryResult)) {
+	Assert::isTrue(isset($pagerModel), 'pager model not setted');
+	Assert::isTrue(isset($columnModel), 'column model not setted');
+	if ($queryResult->getList()) {
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+		?>
+		<table style="width: 95%">
+			<tr>
+				<td>Num:</td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'id'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'email'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'name'))?></td>
+				<td>Actions</td>
+			</tr>
+			<?php
+			/* @var $object IngAdmin */
+			$num = $form->getSafeValue('offset') + 1;
+			foreach ($queryResult->getList() as $object) {
+				$objectDialogUrl = $this->get('linker')->getUrl($object);
+				$objectDialogName = $this->get('linker')->getDialogName($object);
+				?>
+				<tr>
+					<td><?=$num++?></td>
+					<td><?=$object->getId()?></td>
+					<td><?=$this->escape($object->getEmail())?></td>
+					<td><?=$this->escape($object->getName())?></td>
+					<td>
+						<a
+							href="<?=$objectDialogUrl?>"
+							onclick="return DialogController.spawnByLink(event, this, '<?=$objectDialogName?>');"
+						>
+							Info
+						</a>
+					</td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>
+		<?php
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+	} else {
+		?>
+		<div>No elements found</div>
+		<?php
+	}
+}
+$partViewer->view('footer');
+?>

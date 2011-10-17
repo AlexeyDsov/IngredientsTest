@@ -1,0 +1,21 @@
+<?php
+/* @var $infoObject IngReceipt */
+/* @var $propertyName string */
+/* @var $property LightMetaProperty */
+$propertyType = $property->getType();
+$getter = $property->getGetter();
+$object = $infoObject->{$getter}();
+?>
+<tr>
+	<td><?=$property->getName()?>:</td>
+	<td>
+		<?php
+		foreach ($infoObject->getIngredients()->getList() as $ingredient) {
+			/* @var $ingredient IngIngredient */
+			?>
+			<?=$this->escape($ingredient->getProduct()->getName())?><br />
+			<?php
+		}
+		?>
+	</td>
+</tr>

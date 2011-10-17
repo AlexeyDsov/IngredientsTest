@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<?
+$authorisator = $this->get('serviceLocator')->get('authorisator');
+?>
+<html>
+	<head>
+		<?=isset($meta) ? $meta->toString() : ''?>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+		<div style="float: right; width: 200px;">
+			<?
+			if ($user = $authorisator->getUser()) {
+			?>
+				You logged as: <?=$user->getName()?>
+				(<a href="<?=PATH_WEB_URL.http_build_query(array('area' => 'Login', 'action' => 'unlogin'))?>">Unlogin</a>)
+			<?
+			} else {
+			?>
+				<a href="<?=PATH_WEB_URL.http_build_query(array('area' => 'Login'))?>">Authorisation</a> /
+				<a href="<?=PATH_WEB_URL.http_build_query(array('area' => 'Login', 'action' => 'registration'))?>">Registration</a>
+			<?
+			}
+			?>
+		</div>
+		<div style="clear: both;"><!-- --></div>

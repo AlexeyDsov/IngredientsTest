@@ -1,0 +1,69 @@
+<?php
+$partViewer->view('header');
+
+$partViewer->view('helpers/ListMaker/form', $listHeaderModel);
+
+/* @var $queryResult QueryResult */
+if (isset($queryResult)) {
+	Assert::isTrue(isset($pagerModel), 'pager model not setted');
+	Assert::isTrue(isset($columnModel), 'pager model not setted');
+	if ($queryResult->getList()) {
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+		?>
+		<table style="width: 95%">
+			<tr>
+				<td>Num:</td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'id'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'objectName'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'objectId'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'adminId'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'insertDate'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'message'))?></td>
+			</tr>
+			<?php
+			$num = $form->getSafeValue('offset') + 1;
+			foreach ($queryResult->getList() as $object) {
+				$logBoxId = 'logBox'.$object->getId();
+				$adminName = $object->getAdminId() ? $this->escape($object->getAdmin()->getName()) : '';
+				/* @var $object IngLog */
+				?>
+				<tr>
+					<td><?=$num++?></td>
+					<td><?=$object->getId()?></td>
+					<td><?=$object->getObjectName()?></td>
+					<td><?=$object->getObjectId()?></td>
+					<td>
+						<?=$adminName?>
+						(<?=$object->getAdminId()?>)
+					</td>
+					<td><?=$object->getInsertDate()->toString()?></td>
+					<td>
+						<?php
+						$message = "Log time: {$object->getInsertDate()->toString()}\n"
+							. $this->escape($object->getMessage());
+						$title = "Log for {$object->getObjectName()} (id: {$object->getObjectId()}) by {$adminName}";
+						?>
+						<a href="#r" onclick="
+							var dialog = DialogController.getDialog();
+							dialog.html($('#<?=$logBoxId?>').html());
+							dialog.dialog('option', {title: '<?=$title?>', width: 600, height: 600});
+							dialog.dialog('open');
+							return false;
+						">showLog</a>
+						<div id="<?=$logBoxId?>" style="display: none;"><pre><?=$message?></pre></div>
+					</td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>
+		<?php
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+	} else {
+		?>
+		<div>No elements found</div>
+		<?php
+	}
+}
+$partViewer->view('footer');
+?>

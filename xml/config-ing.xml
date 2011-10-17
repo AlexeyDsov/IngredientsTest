@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE metaconfiguration SYSTEM "meta.dtd">
+<metaconfiguration>
+
+	<classes>
+		<class name="IngProduct" source="ing">
+			<properties>
+				<identifier />
+				<property name="name" type="String" size="64" required="true" />
+				<property name="description" type="String" required="false" />
+			</properties>
+			<pattern name="DictionaryClass" />
+		</class>
+		
+		<class name="IngReceipt" source="ing">
+			<properties>
+				<identifier />
+				<property name="name" type="String" size="64" required="true" />
+				<property name="product" type="IngProduct" fetch="lazy" relation="OneToOne" required="true" />
+				<property name="description" type="String" required="false" />
+				
+				<property name="ingredients" type="IngIngredient" relation="OneToMany" />
+			</properties>
+			<pattern name="DictionaryClass" />
+		</class>
+		
+		<class name="IngIngredient" source="ing">
+			<properties>
+				<identifier />
+				<property name="product" type="IngProduct" fetch="lazy" relation="OneToOne" required="true" />
+				<property name="receipt" type="IngReceipt" fetch="lazy" relation="OneToOne" required="true" />
+				<property name="weight" type="Float" required="false" size="2" />
+				<property name="count" type="Float" required="false" size="2" />
+				<property name="comment" type="String" required="false" />
+			</properties>
+			<pattern name="StraightMapping" />
+		</class>
+
+	</classes>
+</metaconfiguration>

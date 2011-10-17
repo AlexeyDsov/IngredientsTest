@@ -1,0 +1,67 @@
+<?php
+$partViewer->view('header');
+
+$partViewer->view('helpers/ListMaker/form', $listHeaderModel);
+
+if ($this->get('linker')->isObjectSupported('IngProduct', 'edit')) {
+	$newObjectDialogName = $this->get('linker')->getDialogName('IngProduct');
+	$newObjectUrl = $this->get('linker')->getUrl('IngProduct', array('action' => 'edit'));
+	?>
+	<a
+		href="<?=$newObjectUrl?>"
+		onclick="return DialogController.spawnByLink(event, this, '<?=$newObjectDialogName?>');"
+	>
+		Create new
+	</a>
+	<?php
+}
+/* @var $queryResult QueryResult */
+if (isset($queryResult)) {
+	Assert::isTrue(isset($pagerModel), 'pager model not setted');
+	Assert::isTrue(isset($columnModel), 'column model not setted');
+	if ($queryResult->getList()) {
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+		?>
+		<table style="width: 95%">
+			<tr>
+				<td>Num:</td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'id'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'name'))?></td>
+				<td><?php $partViewer->view('helpers/ListMaker/column', $columnModel->set('propertyName', 'description'))?></td>
+				<td>Actions</td>
+			</tr>
+			<?php
+			/* @var $object IngProduct */
+			$num = $form->getSafeValue('offset') + 1;
+			foreach ($queryResult->getList() as $object) {
+				$objectDialogUrl = $this->get('linker')->getUrl($object);
+				$objectDialogName = $this->get('linker')->getDialogName($object);
+				?>
+				<tr>
+					<td><?=$num++?></td>
+					<td><?=$object->getId()?></td>
+					<td><?=$this->escape($object->getName())?></td>
+					<td><?=$this->escape($object->getDescription())?></td>
+					<td>
+						<a
+							href="<?=$objectDialogUrl?>"
+							onclick="return DialogController.spawnByLink(event, this, '<?=$objectDialogName?>');"
+						>
+							Info
+						</a>
+					</td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>
+		<?php
+		$partViewer->view('helpers/Pager/offset', $pagerModel);
+	} else {
+		?>
+		<div>No elements found</div>
+		<?php
+	}
+}
+$partViewer->view('footer');
+?>

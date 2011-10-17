@@ -1,0 +1,67 @@
+<?php
+/* @var $infoObject IdentifiableObject */
+/* @var $propertyName string */
+/* @var $property LightMetaProperty */
+$propertyType = $property->getType();
+$getter = $property->getGetter();
+$object = $infoObject->{$getter}();
+?>
+<tr>
+	<td><?=$property->getName()?>:</td>
+	<td>
+		<?php
+		if ($propertyName == 'id') {
+			print $this->escape($infoObject->getId());
+		} elseif (in_array($propertyType, array('identifier', 'scalarIdentifier', 'integerIdentifier'))) {
+			if ($object) {
+				if ($this->get('linker')->isObjectSupported($object, 'info')) {
+					$dialogName = $this->get('linker')->getDialogName($object);
+					$infoUrl = $this->get('linker')->getUrl($object);
+					$objectName = $object->getId();
+					if ($object instanceof NamedObject) {
+						$objectName .= " ({$object->getName()})";
+					}
+					?>
+					<a href="<?=$infoUrl?>" onclick="return DialogController.spawnByLink(event, this, '<?=$dialogName?>');">
+						<?=$this->escape($objectName)?>
+					</a>
+					<?php
+				} else {
+					print $this->escape($object->getId());
+				}
+			} else {
+				print 'Not exists';
+			}
+		} elseif ($propertyType == 'enumeration') {
+			print $object
+				? $this->escape("{$object->getId()} ({$object->getName()})")
+				: 'Not exists';
+		} elseif ($propertyType == 'identifierList') {
+			print "&nbsp;";
+		} elseif ($propertyType == 'boolean') {
+			if ($object === null) {
+				print "Not setted";
+			} elseif ($object === false) {
+				print 'No';
+			} else {
+				print 'Yes';
+			}
+		} else {
+			$object = $infoObject->{$getter}();
+			if ($object === null) {
+				print "not setted\n";
+			} elseif ($object instanceof Date) {
+				print $object->toString();
+			} elseif ($object instanceof TimestampTZ) {
+				print $object->format(TimestampTZ::ATOM);
+			} elseif ($object instanceof Stringable) {
+				print $this->escape($object->toString());
+			} elseif (is_scalar($object)) {
+				print $this->escape($object);
+			} else {
+				print "not readable format of object";
+			}
+		}
+		?>
+	</td>
+</tr>

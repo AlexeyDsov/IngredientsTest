@@ -1,0 +1,11 @@
+<?
+$partViewer->view('header');
+$session = $this->get('serviceLocator')->get('session');
+?>
+<h1>O LO LO</h1>
+<h3>Users count:</h3>
+<h4>Session started: <?=$session->isStarted() ? 'Yes' : 'No'?></h4>
+<h4>Session var 'tro': <?=$session->isStarted() ? (($val = $session->get('tro')) ? $val : 'no value') : 'Session not started'?></h4>
+<?
+$partViewer->view('footer');
+?>

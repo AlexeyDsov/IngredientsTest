@@ -1,0 +1,36 @@
+<?php
+$proto = $infoObjectPrototype->proto();
+/* @var $proto AbstractProtoClass */
+/* @var $form Form */
+$errorList = $form->getErrors();
+$primitiveList = $orderFunction($form->getPrimitiveList());
+?>
+<table style="width: 95%;">
+	<?php
+	foreach ($primitiveList as $propertyName => $primitive) {
+		/* @var $primitive BasePrimitive */
+		$fieldModel = Model::create()->
+			set('form', $form)->
+			set('propertyList', $proto->getPropertyList())->
+			set('propertyName', $propertyName)->
+			set('primitive', $primitive)->
+			set('hasError', isset($errorList[$propertyName]))->
+			merge($commandModel);
+
+		if (isset($customEditFieldsData[$propertyName])) {
+			if (isset($customEditFieldsData[$propertyName]['tpl'])) {
+				$rowTemplate = $customEditFieldsData[$propertyName]['tpl'];
+			} else {
+				$rowTemplate = 'Objects/'.get_class($infoObjectPrototype).'/edit.table.'.$propertyName;
+			}
+			foreach ($customEditFieldsData[$propertyName] as $key => $value) {
+				$fieldModel->set($key, $value);
+			}
+		} else {
+			$rowTemplate = 'Objects/SimpleObject/edit.table.tr';
+		}
+
+		$partViewer->view($rowTemplate, $fieldModel);
+	}
+	?>
+</table>

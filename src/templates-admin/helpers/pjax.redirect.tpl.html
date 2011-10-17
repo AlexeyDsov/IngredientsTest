@@ -1,0 +1,12 @@
+<?php
+Assert::isTrue(isset($url));
+$linkId = 'redirectLink'.mb_substr(md5($url.time().rand(10000, 99999)), 0, 12);
+?>
+<div>
+	<a class="js-pjax" href="<?=$url?>" id="<?=$linkId?>">REDIRECT</a>
+	<script type="text/javascript">
+		$(function(){
+			$('#<?=$linkId?>').click();
+		});
+	</script>
+</div>

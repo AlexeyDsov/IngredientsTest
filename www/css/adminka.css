@@ -1,0 +1,45 @@
+/* global setup */
+.clear {width: 0px; clear: both;}
+h1 {margin: 0px;}
+a {color: black;}
+a:visited {color: black;}
+hr {margin: 3px auto;}
+p {margin: 1px;}
+
+/* head part */
+.loginWindow {
+	float: right;
+	width: 200px;
+}
+
+/* Admin Menu part*/
+.adminMenu {background-color: #dfeffc;}
+.adminMenuPart {
+	background-color: #a6c9e2;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	float: left;
+}
+.adminMenuPart.active {
+	background-color: #fbec88;
+}
+
+.errorField {
+	background-color: #fe9dc7;
+}
+.error {
+	color: #ff0000;
+}
+
+/* custom styles: */
+table.lightTable > tbody > tr > td {
+	border-right-width: 1px;
+	border-right-style: solid;
+}
+
+/* colors: */
+.red {background-color: #ffc7c5;}
+.yellow {background-color: #fefba9;}
+.green {background-color: #b4febb;}

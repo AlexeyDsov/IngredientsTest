@@ -1,0 +1,40 @@
+<?
+$partViewer->view('header');
+?>
+<h2>Authorisation form</h2>
+<form method="post" action="<?=PATH_WEB_URL.http_build_query(array('area' => 'Login'))?>">
+	<input type="hidden" name="action" value="registrUser">
+	<label for="email">Email:</label><br />
+	<input type="text" id="email" name="email" size="30" value="<?=$form->getValue('email')?>" /><br />
+	<?
+	if ($errorMsg = $form->getTextualErrorFor('email')) {
+	?>
+		<span style="color: red;"><?=$errorMsg?></span><br />
+	<?
+	}
+	?>
+	
+	<label for="password">Password:</label><br />
+	<input type="password" id="password" name="password" size="10" value="<?=$form->getValue('password')?>" /><br />
+	<?
+	if ($errorMsg = $form->getTextualErrorFor('password')) {
+	?>
+		<span style="color: red;"><?=$errorMsg?></span><br />
+	<?
+	}
+	?>
+	
+	<label for="name">Имя:</label><br />
+	<input type="text" id="name" name="name" size="30" value="<?=$form->getValue('name')?>" /><br />
+	<?
+	if ($errorMsg = $form->getTextualErrorFor('name')) {
+	?>
+		<span style="color: red;"><?=$errorMsg?></span><br />
+	<?
+	}
+	?>
+	<input type="submit" value="Авторизация" />
+</form>
+<?
+$partViewer->view('footer');
+?>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE metaconfiguration SYSTEM "meta.dtd">
+<metaconfiguration>
+	<include file="config-ing.xml" generate="true" />
+	<include file="config-adminka.xml" generate="true" />
+
+	<classes>
+
+	</classes>
+	
+	<sources>
+		<source name="ing" default="false"/>
+	</sources>
+</metaconfiguration>

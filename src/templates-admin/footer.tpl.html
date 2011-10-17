@@ -1,0 +1,33 @@
+<?php
+if (!$this->get('isAjax')) {
+?>
+			</div>
+<?php
+if (!$this->get('isPjax')) {
+?>
+		</div>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>jquery-1.5.1.min.js"></script>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>jquery-ui-1.8.11.custom.min.js"></script>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>DialogController.js"></script>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>Application.js"></script>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>jquery.sendPostForm.js"></script>
+		<script type="text/javascript" src="<?=PATH_WEB_JS?>jquery.pjax.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('a.js-pjax').pjax('#pjaxArea');
+				$('form.js-pjax').live('submit', function(event){Application.submit(this); return false;});
+				Application.initDatepicker();
+				$('#pjaxArea').bind('end.pjax', function() {
+					Application.initDatepicker();
+				});
+				$('body').bind('dialog.loaded', function() {
+					Application.initDatepicker();
+				});
+			});
+		</script>
+	</body>
+</html>
+	<?php
+	}
+}
+?>
