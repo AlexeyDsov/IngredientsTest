@@ -1,0 +1,4 @@
+conf/config.inc.php
+conf/constants.inc.php
+nbproject
+build_meta.sh
