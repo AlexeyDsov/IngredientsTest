@@ -55,7 +55,10 @@
 						)
 					);
 				} catch (DatabaseException $e) {
-					if (mb_strpos($e->getMessage(), 'does not exist') === false) {
+					if (
+						mb_strpos($e->getMessage(), 'does not exist') === false
+						&& mb_strpos($e->getMessage(), 'missing database') === false
+					) {
 						throw $e;
 					}
 				}
