@@ -53,9 +53,14 @@ try {
 	$application->run();
 
 } catch (Exception $e) {
-	print "<pre>";
-	var_dump(get_class($e), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTraceAsString());
-	exit;
+	if (__LOCAL_DEBUG__) {
+		print "<pre>";
+		var_dump(get_class($e), $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTraceAsString());
+		exit;
+	} else {
+		HeaderUtils::sendHttpStatus(new HttpStatus(HttpStatus::CODE_500));
+		exit;
+	}
 }
 
 ?>
