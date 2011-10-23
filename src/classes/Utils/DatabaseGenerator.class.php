@@ -17,6 +17,22 @@
 		{
 			return new self;
 		}
+		
+		/**
+		 *
+		 * @param string $schemaPath
+		 * @return DatabaseGenerator 
+		 */
+		public function setSchemaPath($schemaPath)
+		{
+			include $schemaPath;
+			Assert::isTrue(isset($schema), 'wrong schemaPath');
+			Assert::isInstance($schema, 'DBSchema', 'wrong schemaPath');
+
+			$this->schema = $schema;
+
+			return $this;
+		}
 
 		/**
 		 * @param string $dbName
@@ -33,8 +49,8 @@
 		 */
 		public function run()
 		{
-			$this->loadSchema();
 			Assert::isInstance($this->db, 'DB', 'call setDBName first');
+			Assert::isInstance($this->schema, 'DBSchema', 'call setSchemaPath first');
 
 			$this->dropAllTables();
 			$this->createAllTables();
@@ -95,15 +111,6 @@
 				$this->db->queryRaw($table->toDialectString($this->db->getDialect()));
 			}
 			$this->db->commit();
-
-			return $this;
-		}
-
-		private function loadSchema()
-		{
-			include PATH_CLASSES . 'Auto/schema.php';
-
-			$this->schema = $schema;
 
 			return $this;
 		}

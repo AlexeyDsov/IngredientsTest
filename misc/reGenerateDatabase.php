@@ -2,7 +2,10 @@
 require dirname(dirname(__FILE__)).'/conf/config.auto.inc.php';
 
 try {
-	DatabaseGenerator::create()->setDBName('ing')->run();
+	DatabaseGenerator::create()->
+		setSchemaPath(PATH_CLASSES . 'Auto/schema.php')->
+		setDBName('ing')->
+		run();
 	
 	$admin = IngAdmin::create()->
 		setEmail('alexeydsov@gmail.com')->
