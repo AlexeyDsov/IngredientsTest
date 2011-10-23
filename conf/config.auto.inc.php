@@ -18,9 +18,6 @@ date_default_timezone_set('Europe/Moscow');
 //including project constants
 require_once('constants.inc.php');
 
-//including onPHP:
-require PATH_ONPHP.'global.inc.php.tpl';
-
 //Project constants
 define('DS', DIRECTORY_SEPARATOR);
 define('PATH_BASE', dirname(dirname(__FILE__)).DS);
@@ -33,15 +30,6 @@ define('PATH_CONTROLLERS', PATH_SRC.'controllers'.DS);
 define('PATH_CONTROLLERS_ADMIN', PATH_SRC.'controllers-admin'.DS);
 define('PATH_TEMPLATES', PATH_SRC.'templates'.DS);
 define('PATH_TEMPLATES_ADMIN', PATH_SRC.'templates-admin'.DS);
-
-// everything else
-define('DEFAULT_ENCODING', 'UTF-8');
-mb_internal_encoding(DEFAULT_ENCODING);
-mb_regex_encoding(DEFAULT_ENCODING);
-
-//loading AlexeyDsov core:
-require PATH_ALEXEYDSOV_CORE . 'include.inc.php';
-require 'config.inc.php';
 
 //including project classes
 ini_set(
@@ -64,6 +52,18 @@ ini_set(
 		)
 	) . PATH_SEPARATOR
 );
+
+//including onPHP:
+require PATH_ONPHP.'global.inc.php.tpl';
+
+// everything else
+define('DEFAULT_ENCODING', 'UTF-8');
+mb_internal_encoding(DEFAULT_ENCODING);
+mb_regex_encoding(DEFAULT_ENCODING);
+
+//loading AlexeyDsov core:
+require PATH_ALEXEYDSOV_CORE . 'include.inc.php';
+require 'config.inc.php';
 
 
 /********** BEGIN RELEASE_CACHE_CONST *********/
