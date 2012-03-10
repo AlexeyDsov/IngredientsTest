@@ -7,7 +7,11 @@
 
 	class IngAdmin extends AutoIngAdmin implements Prototyped, DAOConnected
 	{
-		const SALT = 'eir^$u+hakc\'we+f$)(uu3789^_33dvj89^&$faxnuq+_e2382376xa+svjh+23876x';
+		const REALM = 'Authorisation required';
+		
+		public static function getRealm() {
+			return self::REALM;
+		}
 		
 		/**
 		 * @return IngAdmin
@@ -34,16 +38,6 @@
 		}
 		
 		// your brilliant stuff goes here
-		
-		/**
-		 * @return FbUser
-		**/
-		public function storePassword($password)
-		{
-			Assert::isString($password, 'password must be string');
-			$this->setPassword(md5(self::SALT.$password.self::SALT));
-			return $this;
-		}
 		
 		/**
 		 * Возвращает список действий, доступных пользователю

@@ -76,7 +76,7 @@
 		delete options.success
 
 		var defaults = {
-			timeout: 650,
+//			timeout: 30000,
 			push: true,
 			replace: false,
 			// We want the browser to maintain two separate internal caches: one for

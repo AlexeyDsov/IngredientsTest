@@ -27,7 +27,7 @@ p {margin: 1px;}
 }
 
 .errorField {
-	background-color: #fe9dc7;
+	background-color: #fe9dc7 !important;
 }
 .error {
 	color: #ff0000;
@@ -43,3 +43,21 @@ table.lightTable > tbody > tr > td {
 .red {background-color: #ffc7c5;}
 .yellow {background-color: #fefba9;}
 .green {background-color: #b4febb;}
+
+.w95 {width: 95%;}
+.w100 {width: 100%;}
+table.evenTable > tbody > tr > th {background-color: #F0F0F0}
+table.evenTable > tbody > tr:nth-child(even) {background-color: #F4F4FF}
+table.evenTable > tbody > tr:nth-child(odd) {background-color: #FFF}
+
+._propertyBlock > label {padding-top: 2px;}
+._filterBlock > label {margin-left: 5px; margin-right: 5px;}
+
+/* modifications for jquery ui */
+.ui-dialog .ui-dialog-titlebar-refresh { position: absolute; right: 1.5em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-refresh span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-refresh:hover, .ui-dialog .ui-dialog-titlebar-refresh:focus { padding: 0; }
+
+.ui-dialog .ui-dialog-titlebar-share { position: absolute; right: 2.5em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog .ui-dialog-titlebar-share span { display: block; margin: 1px; }
+.ui-dialog .ui-dialog-titlebar-share:hover, .ui-dialog .ui-dialog-titlebar-share:focus { padding: 0; }

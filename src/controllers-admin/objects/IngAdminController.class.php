@@ -12,7 +12,8 @@
 		protected function getCustomInfoFieldsData(IdentifiableObject $infoObject)
 		{
 			return array(
-				'password' => $this->getEmptyFieldData(),
+				'passwordHash' => $this->getEmptyFieldData(),
+				'loginKey' => $this->getEmptyFieldData(),
 			);
 		}
 
@@ -25,7 +26,8 @@
 		protected function getCustomEditFieldsData(Form $form, IdentifiableObject $subject)
 		{
 			return array(
-				'password' => $this->getEmptyFieldData(),
+				'passwordHash' => $this->getEmptyFieldData(),
+				'loginKey' => $this->getEmptyFieldData(),
 			);
 		}
 
@@ -44,7 +46,7 @@
 		 */
 		protected function getCommand()
 		{
-			return parent::getCommand()->setEditableFieldList(array('id', 'name', 'email', 'passwordNew'));
+			return parent::getCommand()->setEditableFieldList(array('id', 'name', 'email', 'passwordNew', 'passwordHash'));
 		}
 	}
 ?>

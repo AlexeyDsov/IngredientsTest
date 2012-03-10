@@ -26,12 +26,13 @@
 			$form->
 				add(Primitive::string('passwordNew')->setMin(6)->setMax(20)->required())->
 				addRule('passwordConvert', CallbackLogicalObject::create(function(Form $form) {
-					if ($newPassword = $form->getValue('passwordNew')) {
+					$newPassword = $form->getValue('passwordNew');
+					$email = $form->getValue('email');
+					if ($newPassword && $email) {
+						$loginHelper = new LoginHelperDigest();
 						$form->importValue(
-							'password',
-							IngAdmin::create()->
-								storePassword($newPassword)->
-								getPassword()
+							'passwordHash',
+							$loginHelper->of('IngAdmin')->getHash($email, $newPassword)
 						);
 						return true;
 					}

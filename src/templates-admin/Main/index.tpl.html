@@ -1,22 +1,12 @@
-<?
-$partViewer->view('header');
-?>
-<?
-if (!$this->get('isAjax')) {
-?>
+<? $partViewer->view('header'); ?>
+<? if (!$this->get('isAjax')) { ?>
 	<a href="<?=PATH_WEB_URL?>" onclick="DialogController.spawnByLink(this); return false;">O LO LO</a>
-<?
-} else {
-?>
+<? } else { ?>
 	O LO LO LO
 	<script type="text/javascript">
 		DialogController.currentDialog.dialog('option', {
 			title: "o lo lo"
 		});
 	</script>
-<?
-}
-?>
-<?
-$partViewer->view('footer');
-?>
+<? } ?>
+<? $partViewer->view('footer'); ?>

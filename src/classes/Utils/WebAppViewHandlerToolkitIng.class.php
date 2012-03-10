@@ -10,15 +10,13 @@
  *                                                                         *
  ***************************************************************************/
 
-	class WebAppLinkerInjector implements InterceptingChainHandler
+	/**
+	 * Класс для создания верхнего меню в админке. Временно решение, в будуйщем может быть изменено
+	 */
+	class WebAppViewHandlerToolkitIng extends WebAppViewHandlerToolkit
 	{
 		/**
-		 * @var string
-		 */
-		private $logClassName = null;
-		
-		/**
-		 * @return WebAppLinkerInjector
+		 * @return WebAppViewHandlerToolkitIng
 		 */
 		public static function create()
 		{
@@ -26,24 +24,18 @@
 		}
 		
 		/**
-		 * @param string $logClassName
-		 * @return WebAppLinkerInjector 
+		 * @return string
 		 */
-		public function setLogClassName($logClassName)
-		{
-			$this->logClassName = $logClassName;
-			return $this;
+		protected function getMenuContructor() {
+			return 'ToolkitMenuConstructorIng';
 		}
-		
-		public function run(InterceptingChain $chain)
-		{
-			/* @var $chain WebApplication */
-			$serviceLocator = $chain->getServiceLocator();
-			$linker = $serviceLocator->spawn('ToolkitLinkUtils');
-			/* @var $linker ToolkitLinkUtils */
-			$serviceLocator->set('linker', $linker->setLogClassName($this->logClassName));
-			
-			$chain->next();
-		}
+
+//		need create project-own in future
+//		/**
+//		 * @return string
+//		 */
+//		protected function getNameConverterClass() {
+//			return 'ObjectNameConverter';
+//		}
 	}
 ?>

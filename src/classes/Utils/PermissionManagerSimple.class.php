@@ -10,14 +10,24 @@
  *                                                                         *
  ***************************************************************************/
 
-	class WebAppControllerHandlerIndex extends WebAppControllerHandler
+	/**
+	 * Упрощенный класс проверки прав. Считаем что еслип пользователь авторизован - у него есть права на все
+	 */
+	class PermissionManagerSimple extends PermissionManager
 	{
 		/**
-		 * @return WebAppControllerHandlerIndex
+		 * @return PermissionManagerSimple
 		 */
-		public static function create()
-		{
-			return new self();
+		public static function create() {
+			return new self;
+		}
+		
+		public function hasPermission(IPermissionUser $user, $method, $object) {
+			return true;
+		}
+		
+		public function hasPermissionToClass(IPermissionUser $user, $method, $object) {
+			return true;
 		}
 	}
 ?>

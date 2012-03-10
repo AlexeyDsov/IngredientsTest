@@ -5,22 +5,20 @@
  *   This file will never be generated again - feel free to edit.            *
  *****************************************************************************/
 
-	class IngAdminDAO extends AutoIngAdminDAO
-	{
+	class IngAdminDAO extends AutoIngAdminDAO implements ILoginUserDigestDAO
+	{	
 		/**
-		 * @return FbUser 
+		 * @param string $email
+		 * @return IngAdmin
 		 */
-		public function getByEmailAndPassword($email, $password)
-		{
-			Assert::isString($email, 'email must not be empty');
-			Assert::isString($password, 'password must not be empty');
-			$password = md5(IngAdmin::SALT.$password.IngAdmin::SALT);
-			
-			return Criteria::create($this)->
-				add(Expression::eq('email', DBValue::create($email)))->
-				add(Expression::eq('password', DBValue::create($password)))->
-				setLimit(1)->
-				get();
+		public function findByAuthParam($email) {
+			return Criteria::create($this)
+				->add(Expression::eq(
+					SQLFunction::create('lower', 'email'),
+					DBValue::create(mb_strtolower($email))
+				))
+				->setLimit(1)
+				->get();
 		}
 	}
 ?>

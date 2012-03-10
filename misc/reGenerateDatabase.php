@@ -7,10 +7,13 @@ try {
 		setDBName('ing')->
 		run();
 	
+	$loginHelper = new LoginHelperDigest();
+	$loginHelper->of('IngAdmin');
+	
 	$admin = IngAdmin::create()->
 		setEmail('alexeydsov@gmail.com')->
-		storePassword('123456')->
-		setName('AlexeyDsov');
+		setPasswordHash($loginHelper->getHash('alexeydsov@gmail.com', '123456'))->
+		setName('AlexeyDsovv');
 	$admin = $admin->dao()->add($admin);
 	
 	$productTomat = IngProduct::dao()->add(IngProduct::create()->setName('Томатный сок'));
