@@ -15,6 +15,7 @@
 		{
 			return array(
 				'id' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -22,6 +23,7 @@
 					)
 				),
 				'product' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -29,11 +31,21 @@
 					)
 				),
 				'receipt' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
 						ListMakerProperties::OPTION_FILTERABLE_IN,
 					)
+				),
+				'weight' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
+				),
+				'count' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
+				),
+				'comment' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 				),
 			);
 		}

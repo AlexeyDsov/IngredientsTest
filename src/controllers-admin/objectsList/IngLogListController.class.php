@@ -15,6 +15,7 @@
 		{
 			return array(
 				'id' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -25,12 +26,14 @@
 					)
 				),
 				'objectName' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
 						ListMakerProperties::OPTION_FILTERABLE_IN,
 					)
 				),
 				'objectId' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -38,6 +41,7 @@
 					)
 				),
 				'adminId' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -45,6 +49,7 @@
 					)
 				),
 				'insertDate' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_ORDERING => ListMakerProperties::ORDER_ASC,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
@@ -55,6 +60,7 @@
 					)
 				),
 				'message' => array(
+					ListMakerProperties::OPTION_COLUMN => true,
 					ListMakerProperties::OPTION_FILTERABLE => array(
 						ListMakerProperties::OPTION_FILTERABLE_EQ,
 						ListMakerProperties::OPTION_FILTERABLE_ILIKE,
