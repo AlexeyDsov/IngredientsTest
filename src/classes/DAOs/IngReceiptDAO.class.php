@@ -7,6 +7,10 @@
 
 	class IngReceiptDAO extends AutoIngReceiptDAO
 	{
-		// your brilliant stuff goes here
+		public function getListOrdered() {
+			return Criteria::create($this)
+				->addOrder('name')
+				->getList();
+		}
 	}
 ?>

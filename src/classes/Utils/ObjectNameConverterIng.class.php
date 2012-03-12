@@ -10,31 +10,16 @@
  *                                                                         *
  ***************************************************************************/
 
-	/**
-	 * Класс для создания верхнего меню в админке. Временно решение, в будуйщем может быть изменено
-	 */
-	class WebAppViewHandlerToolkitIng extends WebAppViewHandlerToolkit
+	class ObjectNameConverterIng extends ObjectNameConverter
 	{
-		/**
-		 * @return WebAppViewHandlerToolkitIng
-		 */
-		public static function create()
-		{
-			return new self();
-		}
-		
-		/**
-		 * @return string
-		 */
-		protected function getMenuContructor() {
-			return 'ToolkitMenuConstructorIng';
-		}
-
-		/**
-		 * @return string
-		 */
-		protected function getNameConverterClass() {
-			return 'ObjectNameConverterIng';
+		public function get(IdentifiableObject $object) {
+			switch (get_class($object)) {
+				case 'IngIngredient':
+					/* @var $object IngIngredient */
+					return "{$object->getReceipt()->getName()} <- {$object->getProduct()->getName()}";
+				default:
+					return parent::get($object);
+			}
 		}
 	}
 ?>

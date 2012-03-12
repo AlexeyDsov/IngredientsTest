@@ -7,6 +7,10 @@
 
 	class IngProductDAO extends AutoIngProductDAO
 	{
-		// your brilliant stuff goes here
+		public function getListOrdered() {
+			return Criteria::create($this)
+				->addOrder('name')
+				->getList();
+		}
 	}
 ?>

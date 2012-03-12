@@ -1,0 +1,23 @@
+<?php
+/* @var $form Form */
+/* @var $propertyList array */
+
+/* @var $propertyName string */
+/* @var $primitive BasePrimitive */
+/* @var $hasError boolean */
+$selectedId = $primitive->exportValue();
+?>
+<tr class="<?=$hasError ? 'errorField' : ''?>">
+	<td>
+		<?=$propertyName?><?=$primitive->isRequired() ? '*' : ''?>:
+	</td>
+	<td>
+		<select name="<?=$propertyName?>">
+			<? foreach ($productList as $product) { ?>
+				<option value="<?=$product->getId()?>" <?=$product->getId() == $selectedId ? 'selected' : ''?>>
+					<?=$this->escape($this->get('nameConverter')->get($product))?>
+				</option>
+			<? } ?>
+		</select>
+	</td>
+</tr>

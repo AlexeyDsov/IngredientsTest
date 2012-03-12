@@ -1,0 +1,23 @@
+<?php
+/* @var $form Form */
+/* @var $propertyList array */
+
+/* @var $propertyName string */
+/* @var $primitive BasePrimitive */
+/* @var $hasError boolean */
+$selectedId = $primitive->exportValue();
+?>
+<tr class="<?=$hasError ? 'errorField' : ''?>">
+	<td>
+		<?=$propertyName?><?=$primitive->isRequired() ? '*' : ''?>:
+	</td>
+	<td>
+		<select name="<?=$propertyName?>">
+			<? foreach ($receiptList as $receipt) { ?>
+				<option value="<?=$receipt->getId()?>" <?=$receipt->getId() == $selectedId ? 'selected' : ''?>>
+					<?=$this->escape($this->get('nameConverter')->get($receipt))?>
+				</option>
+			<? } ?>
+		</select>
+	</td>
+</tr>

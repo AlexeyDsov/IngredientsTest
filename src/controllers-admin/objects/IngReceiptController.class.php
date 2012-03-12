@@ -18,6 +18,7 @@
 		
 		protected function getCustomEditFieldsData(Form $form, IdentifiableObject $subject) {
 			return array(
+				'product' => array('productList' => IngProduct::dao()->getListOrdered()),
 				'ingredients' => $this->getEmptyFieldData(),
 			);
 		}

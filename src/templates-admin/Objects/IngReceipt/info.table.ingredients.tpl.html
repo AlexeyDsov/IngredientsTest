@@ -9,13 +9,8 @@ $object = $infoObject->{$getter}();
 <tr>
 	<td><?=$property->getName()?>:</td>
 	<td>
-		<?php
-		foreach ($infoObject->getIngredients()->getList() as $ingredient) {
-			/* @var $ingredient IngIngredient */
-			?>
-			<?=$this->escape($ingredient->getProduct()->getName())?><br />
-			<?php
-		}
-		?>
+		<? foreach ($infoObject->getIngredients()->getList() as $ingredient) {?>
+			<?=$this->objectLink($ingredient)?><br />
+		<? } ?>
 	</td>
 </tr>
