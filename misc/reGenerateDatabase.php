@@ -19,26 +19,60 @@ try {
 	$productTomat = IngProduct::dao()->add(IngProduct::create()->setName('Томатный сок'));
 	$productVodka = IngProduct::dao()->add(IngProduct::create()->setName('Хорошая водка'));
 	$productBloodMery = IngProduct::dao()->add(IngProduct::create()->setName('Коктель, Кровавая Мэри'));
+	$productLime = IngProduct::dao()->add(IngProduct::create()->setName('Лайм'));
+	$productLemon = IngProduct::dao()->add(IngProduct::create()->setName('Лимон'));
+	$productSugar = IngProduct::dao()->add(IngProduct::create()->setName('Сахар'));
+	$productWater = IngProduct::dao()->add(IngProduct::create()->setName('Вода'));
+	$productRum = IngProduct::dao()->add(IngProduct::create()->setName('Ром'));
+	$productMint = IngProduct::dao()->add(IngProduct::create()->setName('Мята'));
+	$productSoda = IngProduct::dao()->add(IngProduct::create()->setName('Содовая'));
+	$productMojito = IngProduct::dao()->add(IngProduct::create()->setName('Мохито'));
+	$productLemonade = IngProduct::dao()->add(IngProduct::create()->setName('Лимонад (лимонный)'));
 	
-	$receiptBloodMery = IngReceipt::create()->
-		setDescription('Взять одну часть томатного сока и одну часть водки, смешать')->
-		setProduct($productBloodMery)->
-		setName('Коктель, Кровавая Мэри');
-	$receiptBloodMery = $receiptBloodMery->dao()->add($receiptBloodMery);
+	$receiptsList = array(
+		$productBloodMery->getId() => array(
+			"Коктейль Кровавая Мэри",
+			'Взять одну часть томатного сока и одну часть водки, смешать',
+			array($productVodka, null, 1, 'взять одну часть'),
+			array($productTomat, null, 1, 'взять одну часть'),
+		),
+		$productMojito->getId() => array(
+			'Коктейль мохито',
+			'50мл рома, 12 листиков мяты, 1/2 лайма, 15мл сахарного сиропа, 3-5 капель настойки Agnostura Bitter, Содовая',
+			array($productLime, null, 0.5, '1/2 лайма'),
+			array($productSugar, 15, null, '15мл сахарного сиропа'),
+			array($productSoda, null, null, 'содовая'),
+			array($productMint, null, 12, '12 листиков мяты'),
+			array($productRum, 50, null, '50мл рома'),
+		),
+		$productLemonade->getId() => array(
+			'Лимонад (Лимонный)',
+			'Выжать сок лимона в воду',
+			array($productLime, null, 0.5, '1/2 лайма'),
+			array($productSugar, null, 15, '15мл сахарного сиропа'),
+		),
+	);
 	
-	$meryIngredientTomat = IngIngredient::create()->
-		setComment('взять одну часть')->
-		setCount(1)->
-		setReceipt($receiptBloodMery)->
-		setProduct($productTomat);
-	$meryIngredientTomat->dao()->add($meryIngredientTomat);
-	
-	$meryIngredientVodka = IngIngredient::create()->
-		setComment('взять одну часть')->
-		setCount(1)->
-		setReceipt($receiptBloodMery)->
-		setProduct($productVodka);
-	$meryIngredientTomat->dao()->add($meryIngredientVodka);
+	foreach ($receiptsList as $receiptProductId => $receiptRow) {
+		$receiptName = array_shift($receiptRow);
+		$receiptDescription = array_shift($receiptRow);
+		
+		$receipt = IngReceipt::create()
+			->setProductId($receiptProductId)
+			->setDescription($receiptDescription)
+			->setName($receiptName);
+		$receipt = $receipt->dao()->add($receipt);
+		
+		foreach ($receiptRow as $ingredientRow) {
+			$ingredient = IngIngredient::create()
+				->setReceipt($receipt)
+				->setProduct($ingredientRow[0])
+				->setWeight($ingredientRow[1])
+				->setCount($ingredientRow[2])
+				->setComment($ingredientRow[3]);
+			$ingredient->dao()->add($ingredient);
+		}
+	}
 	
 	print "finished success\n";
 } catch	(Exception $e) {
