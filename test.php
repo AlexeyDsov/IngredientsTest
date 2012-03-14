@@ -2,17 +2,27 @@
 require dirname(__FILE__).'/conf/config.auto.inc.php';
 
 try {
-	$admin = Criteria::create(IngAdmin::dao())->setLimit(1)->get();
-	/* @var $admin IngAdmin */
-	$product = IngProduct::dao()->getById(1);
-	/* @var $product IngProduct */
+	$getAll = function () {
+		IngAdmin::dao()->dropIdentityMap();
+		IngProduct::dao()->dropIdentityMap();
+		return array(
+			IngAdmin::dao()->getById(1),
+			IngProduct::dao()->getById(1),
+		);
+	};
+	list($admin, $product) = $getAll();
+	
+	var_dump('count: '.count($admin->getFavoriteProducts()->fetch()->getList()));
+	var_dump('count: '.count(Criteria::create(IngAdmin::dao())->add(Expression::eq('favoriteProducts.id', '1'))->getList()));
 	
 	$admin->getFavoriteProducts()->fetch()->setList(array($product))->save();
+	list($admin, $product) = $getAll();
 	
 	var_dump('count: '.count($admin->getFavoriteProducts()->fetch()->getList()));
 	var_dump('count: '.count(Criteria::create(IngAdmin::dao())->add(Expression::eq('favoriteProducts.id', '1'))->getList()));
 	
 	$admin->getFavoriteProducts()->fetch()->setList(array())->save();
+	list($admin, $product) = $getAll();
 	
 	var_dump('count: '.count($admin->getFavoriteProducts()->fetch()->getList()));
 	var_dump('count: '.count(Criteria::create(IngAdmin::dao())->add(Expression::eq('favoriteProducts.id', '1'))->getList()));
