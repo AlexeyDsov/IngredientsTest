@@ -12,6 +12,8 @@
 				<property name="email" type="String" size="128" required="true" />
 				<property name="passwordHash" type="String" size="32" required="true" />
 				<property name="loginKey" type="String" size="32" required="false" />
+				
+				<property name="favoriteProducts" type="IngProduct" relation="ManyToMany" />
 			</properties>
 			<pattern name="DictionaryClass" />
 		</class>
